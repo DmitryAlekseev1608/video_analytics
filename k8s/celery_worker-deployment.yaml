@@ -11,40 +11,24 @@ spec:
     spec:
       containers:
         - name: celery_worker-videoanalytics
-          image: docker.io/checkpoint5/celery_worker:latest
+          image: checkpoint6/django:latest
+          command: ['celery', '-A', 'backend.celery_app', 'worker']
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
               name: postgres-storage
-            - mountPath: /dev/video0
-              name: camera
+            - mountPath: "/data"
+              name: django-storage
           imagePullPolicy: Never
-          ports:
-            - containerPort: 8000
-          env:
-            - name: POSTGRES_HOST
-              value: 'postgres-statefulset-0.postgres-service.default.svc.cluster.local'
-            - name: POSTGRES_PORT
-              value: '5432'
-            - name: POSTGRES_DB
-              value: my_database
-            - name: POSTGRES_USER
-              value: my_username
-            - name: POSTGRES_PASSWORD
-              value: my_password
-            - name: APP_ENV
-              value: k8s
           envFrom:
             - secretRef:
                 name: django-secret
-          securityContext:
-            privileged: true
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
             claimName: postgres-pvc-postgres-statefulset-0
-        - name: camera
-          hostPath:
-            path: /dev/video0
+        - name: django-storage
+          emptyDir:
+            sizeLimit: 1000Mi
   selector:
     matchLabels:
-      app: django-app
+      app: celery_worker-app

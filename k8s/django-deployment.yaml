@@ -17,6 +17,8 @@ spec:
               name: postgres-storage
             - mountPath: /dev/video0
               name: camera
+            - mountPath: /data
+              name: django-storage
           imagePullPolicy: Never
           ports:
             - containerPort: 8000
@@ -45,6 +47,9 @@ spec:
         - name: camera
           hostPath:
             path: /dev/video0
+        - name: django-storage
+          emptyDir:
+            sizeLimit: 1000Mi
   selector:
     matchLabels:
       app: django-app
