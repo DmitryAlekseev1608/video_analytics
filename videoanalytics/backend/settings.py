@@ -132,10 +132,10 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # set the celery broker url
-CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_BROKER_URL = "redis://redis-statefulset-0.redis-service.default.svc.cluster.local:6379/0"
 
 # set the celery result backend
-CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis-statefulset-0.redis-service.default.svc.cluster.local:6379/0"
 
 # set the celery timezone
 CELERY_TIMEZONE = "UTC"

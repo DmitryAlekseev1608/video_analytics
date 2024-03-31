@@ -1,18 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: django-ingress
+  name: flower-worker-ingress
   annotations:
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 spec:
   rules:
-    - host: flower_worker
+    - host: flower-worker
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: flower_worker-service
+                name: flower-worker-service
                 port:
                   number: 5555

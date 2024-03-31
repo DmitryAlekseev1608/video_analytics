@@ -35,13 +35,17 @@ apply_django_ingress:
 
 
 
-	kubectl apply -f k8s/postgres-statefulset.yaml
-	kubectl apply -f k8s/postgres-service.yaml
 
-	kubectl apply -f k8s/redis-statefulset.yaml
-	kubectl apply -f k8s/redis-service.yaml
+	eval $(minikube docker-env) && docker images
+	eval $(minikube docker-env) && docker build -t checkpoint6/django:latest videoanalytics
 
-	kubectl apply -f k8s/django-deployment.yaml
-	kubectl apply -f k8s/django-secret.yaml
-	kubectl apply -f k8s/django-service.yaml
-	kubectl apply -f k8s/django-ingress.yaml
+	kubectl apply -f k8s/
+
+ 	kubectl exec -it test-pod -- /bin/bash
+	echo -n "7085777705:AAGqFQHYvTtzdswHPq29yGQhNTtWlCg34zA" | base64
+	NzA4NTc3NzcwNTpBQUdxRlFIWXZUdHpkc3dIUHEyOXlHUWhOVHRXbENnMzR6QQ==
+
+	echo -n "562928180" | base64
+	NTYyOTI4MTgw
+
+	echo "127.0.0.1 frontend.localhost\n127.0.0.1 backend.localhost" | sudo tee -a /etc/hosts

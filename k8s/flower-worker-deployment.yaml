@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flower_worker-deployment
+  name: flower-worker-deployment
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: flower_worker-app
+        app: flower-worker-app
     spec:
       containers:
-        - name: flower_worker-videoanalytics
-          image: checkpoint6/django:latest
+        - name: flower-worker-videoanalytics
+          image: docker.io/checkpoint5/django:latest
           command: ['celery', '-A', 'backend.celery_app', 'worker']
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
@@ -28,6 +28,9 @@ spec:
         - name: postgres-storage
           persistentVolumeClaim:
             claimName: postgres-pvc-postgres-statefulset-0
+        - name: django-storage
+          emptyDir:
+            sizeLimit: 1000Mi   
   selector:
     matchLabels:
-      app: flower_worker-app
+      app: flower-worker-app

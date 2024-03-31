@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: celery_worker-deployment
+  name: celery-worker-deployment
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: celery_worker-app
+        app: celery-worker-app
     spec:
       containers:
-        - name: celery_worker-videoanalytics
-          image: checkpoint6/django:latest
+        - name: celery-worker-videoanalytics
+          image: docker.io/checkpoint5/django:latest
           command: ['celery', '-A', 'backend.celery_app', 'worker']
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
@@ -31,4 +31,4 @@ spec:
             sizeLimit: 1000Mi
   selector:
     matchLabels:
-      app: celery_worker-app
+      app: celery-worker-app
