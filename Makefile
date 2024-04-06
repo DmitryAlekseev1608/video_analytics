@@ -49,3 +49,5 @@ apply_django_ingress:
 	NTYyOTI4MTgw
 
 	echo "127.0.0.1 frontend.localhost\n127.0.0.1 backend.localhost" | sudo tee -a /etc/hosts
+
+	kubectl delete all --all

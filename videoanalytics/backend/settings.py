@@ -131,11 +131,27 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+
+REDIS_URL = "redis://redis-statefulset-0.redis-service.default.svc.cluster.local:6379/0"
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": REDIS_URL,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "example"
+    }
+}
+
+# CELERY
+BROKER_URL = REDIS_URL
+
 # set the celery broker url
-CELERY_BROKER_URL = "redis://redis-statefulset-0.redis-service.default.svc.cluster.local:6379/0"
+CELERY_BROKER_URL = REDIS_URL
 
 # set the celery result backend
-CELERY_RESULT_BACKEND = "redis://redis-statefulset-0.redis-service.default.svc.cluster.local:6379/0"
+CELERY_RESULT_BACKEND = REDIS_URL
 
 # set the celery timezone
 CELERY_TIMEZONE = "UTC"

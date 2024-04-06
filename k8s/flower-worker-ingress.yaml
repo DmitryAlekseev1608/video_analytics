@@ -6,7 +6,7 @@ metadata:
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 spec:
   rules:
-    - host: flower-worker
+    - host: flower.worker
       http:
         paths:
           - path: /
