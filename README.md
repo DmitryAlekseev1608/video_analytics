@@ -46,3 +46,8 @@ kubectl get ingress
 ```bash
 echo "192.168.49.2 backend.info" | sudo tee -a /etc/hosts
 ```
+
+Возможно потребуется прокидывание minikube тунеля:
+```bash
+minikube tunnel    
+```

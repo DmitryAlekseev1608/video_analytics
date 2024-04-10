@@ -6,7 +6,7 @@ start_minikube:
 	echo "start_minikube" > start_minikube
 
 setup_docker_env:
-	eval $$(minikube docker-env) && docker build -t checkpoint5/django:latest videoanalytics
+	eval $(minikube docker-env) && docker build -t checkpoint6/django:latest videoanalytics
 	echo "setup_docker_env" > setup_docker_env
 
 enable_ingress:
@@ -50,8 +50,8 @@ apply_django_ingress:
 	echo -n "562928180" | base64
 	NTYyOTI4MTgw
 
-	echo "127.0.0.1 frontend.localhost\n127.0.0.1 backend.localhost" | sudo tee -a /etc/hosts
-
 	kubectl delete all --all
 
+	echo "192.168.49.2 flower.worker\n192.168.49.2 backend.info" | sudo tee -a /etc/hosts
 	echo "127.0.0.1 flower.worker\n127.0.0.1 backend.info" | sudo tee -a /etc/hosts
+
