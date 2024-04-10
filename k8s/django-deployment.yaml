@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: django-videoanalytics
-          image: docker.io/checkpoint5/django:latest
+          image: docker.io/checkpoint6/django:latest
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
               name: postgres-storage

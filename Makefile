@@ -38,6 +38,8 @@ apply_django_ingress:
 
 	eval $(minikube docker-env) && docker images
 	eval $(minikube docker-env) && docker build -t checkpoint6/django:latest videoanalytics
+	minikube addons enable ingress
+
 
 	kubectl apply -f k8s/
 
@@ -51,3 +53,5 @@ apply_django_ingress:
 	echo "127.0.0.1 frontend.localhost\n127.0.0.1 backend.localhost" | sudo tee -a /etc/hosts
 
 	kubectl delete all --all
+
+	echo "127.0.0.1 flower.worker\n127.0.0.1 backend.info" | sudo tee -a /etc/hosts

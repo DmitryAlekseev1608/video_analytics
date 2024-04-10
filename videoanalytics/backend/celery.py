@@ -1,12 +1,8 @@
 import os
 from celery import Celery
-from __future__ import absolute_import, unicode_literals
-from .celery import app as celery_app
-
-__all__ = ['celery_app']
 
 # Set the default Django settings module for the 'celery' program.
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kube_django.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")
 
 app = Celery("backend", broker="redis://redis-statefulset-0.redis-service.default.svc.cluster.local:6379/0")
 
@@ -15,8 +11,8 @@ app = Celery("backend", broker="redis://redis-statefulset-0.redis-service.defaul
 # - namespace='CELERY' means all celery-related configuration keys
 #   should have a `CELERY_` prefix.
 app.config_from_object("django.conf:settings", namespace="CELERY")
-app.conf.broker_url = 'redis://redis-statefulset-0.redis-service.default.svc.cluster.local:6379/0'
-app.conf.result_backend = 'redis://redis-statefulset-0.redis-service.default.svc.cluster.local:6379/0'
+# app.conf.broker_url = 'redis://redis-statefulset-0.redis-service.default.svc.cluster.local:6379/0'
+# app.conf.result_backend = 'redis://redis-statefulset-0.redis-service.default.svc.cluster.local:6379/0'
 
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks()
