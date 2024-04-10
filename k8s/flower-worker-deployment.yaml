@@ -12,7 +12,7 @@ spec:
       containers:
         - name: flower-worker-videoanalytics
           image: docker.io/checkpoint6/django:latest
-          command: ['celery', '-A', 'backend.celery_app', 'worker']
+          command: ['celery', '-A', 'backend.celery_app', 'flower']
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
               name: postgres-storage

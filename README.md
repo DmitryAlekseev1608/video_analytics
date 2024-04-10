@@ -1,4 +1,4 @@
-## Общее описание выполненных задач в рамках checkpoint 5
+## Общее описание выполненных задач в рамках checkpoint 6
 
 Работа была выполнена на основании checkpoint 2, где еще не были внедрены 
 celery, flower-celery, nginx и redis.
@@ -31,7 +31,9 @@ minikube delete
 
 В результате выполнения кода на странице по адресу http://backend.info/video_feed/ будет видно изображение с видеокамеры, а
 по адресу http://backend.info/video_demo/ увидите плеер, но видео воспроизводится не будет, так как на checkpoint2 оно еще не
-было прокинуто.
+было прокинуто. Ссылки открывать лучше в браузере Firefox.
+
+https://flower.worker/
 
 ## Возможные ситуации
 
@@ -44,10 +46,27 @@ kubectl get ingress
 Прошу вставить IP, полученное с прошлой команды в следующую (192.168.49.2 - показано для примера):
 
 ```bash
-echo "192.168.49.2 backend.info" | sudo tee -a /etc/hosts
+echo "192.168.49.2 flower.worker\n192.168.49.2 backend.info" | sudo tee -a /etc/hosts
 ```
 
 Возможно потребуется прокидывание minikube тунеля:
 ```bash
 minikube tunnel    
+```
+
+## Полезные команды
+
+Проверка созданных образов:
+```bash
+eval $(minikube docker-env) && docker images
+```
+
+Применение кодировки base64 для секретов:
+```bash
+echo -n "7085777705:AAGqFQHYvTtzdswHPq29yGQhNTtWlCg34zA" | base64
+```
+
+Удаление всех сущностей:
+```bash
+kubectl delete all --all
 ```
